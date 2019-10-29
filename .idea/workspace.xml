@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$USER_HOME$/Desktop/userlogin-api" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../api-projects/bookmyshow" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../api-projects/browse-restaurant-api" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../api-projects/product" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../backend-projects/add-2-nums/question-28-sb1.5.21R-j1.8-gradle-in-docker" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../backend-projects/add-2-nums/question-28-sb2.0.9R-j1.8-gradle-in-docker" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../backend-projects/add-2-nums/question-28-sb2.1.6R-j1.8-gradle-in-docker" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../backend-projects/add-2-nums/test-109-q-31ec4e4a285c4aaca069a2d13ddcfb45--sb2.1.6R-j1.8-gradle-in-docker" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../backend-projects/add-2-nums/test-109-q-c4327c10c95147fc86b3c67e44b1b333--sb2.1.6R-j1.8-gradle-in-docker" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../backend-projects/add-2-nums/test-45-q-e3a0b36ac8994d0789aaf167f8b637cf--sb2.1.6R-j1.8-gradle-in-docker" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../backend-projects/cab-service" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../demoProjects/user-login" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../spring-boot-gradle-in-docker" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../test-113-q-32c4e486995d4ba3923a50b2610f5742--sb2.1.6R-j1.8-gradle-in-docker" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="23" />
+    <option name="width" value="720" />
+    <option name="height" value="828" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/org/codejudge/sb" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
