@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Table(name = "question")
@@ -17,7 +16,7 @@ public class Question {
     private String name;
     private String options;
     private Integer correctOption;
-    private UUID quizId;
+    private Integer quizId;
     private Integer points;
 
     public Question() {
@@ -67,11 +66,11 @@ public class Question {
 
     @JsonProperty("quiz")
     @Column(name = "quiz_id", nullable = false)
-    public UUID getQuizId() {
+    public Integer getQuizId() {
         return quizId;
     }
 
-    public void setQuizId(UUID quizId) {
+    public void setQuizId(Integer quizId) {
         this.quizId = quizId;
     }
 

@@ -11,8 +11,8 @@ import java.util.UUID;
 public interface QuestionRepository extends JpaRepository<Question, UUID> {
 
     @Query(value = "select * from question where id = :id", nativeQuery = true)
-    Question getQuestionById(@Param("id") UUID id);
+    Question getQuestionById(@Param("id") Integer id);
 
     @Query(value = "select * from question where quiz_id = :quiz_id", nativeQuery = true)
-    List<Question> getQuestionsByQuizId(@Param("quiz_id") UUID quizId);
+    List<Question> getQuestionsByQuizId(@Param("quiz_id") Integer quizId);
 }

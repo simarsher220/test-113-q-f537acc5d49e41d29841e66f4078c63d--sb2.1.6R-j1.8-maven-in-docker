@@ -12,5 +12,5 @@ import java.util.UUID;
 public interface QuizRepository extends JpaRepository<Quiz, UUID> {
 
     @Query(value = "select * from quiz where id = :id", nativeQuery = true)
-    Quiz getQuizById(@Param("id") UUID id);
+    Quiz getQuizById(@Param("id") Integer id);
 }

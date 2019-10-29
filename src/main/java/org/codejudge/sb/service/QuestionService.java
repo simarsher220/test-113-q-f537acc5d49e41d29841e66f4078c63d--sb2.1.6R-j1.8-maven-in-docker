@@ -22,12 +22,12 @@ public class QuestionService {
     @Autowired
     private QuizRepository quizRepository;
 
-    public Question getQuestionById(UUID questionId) {
+    public Question getQuestionById(Integer questionId) {
         return questionRepository.getQuestionById(questionId);
     }
 
     public Question createQuestion(Question question) throws CustomException {
-        UUID quizId = question.getQuizId();
+        Integer quizId = question.getQuizId();
         Quiz quiz = quizRepository.getQuizById(quizId);
         if (quiz == null) {
             throw new CustomException("No quiz found!", HttpStatus.BAD_REQUEST);
@@ -41,7 +41,7 @@ public class QuestionService {
         return question;
     }
 
-    public List<Question> getQuestionsByQuizId(UUID quizId) {
+    public List<Question> getQuestionsByQuizId(Integer quizId) {
         List<Question> questions = questionRepository.getQuestionsByQuizId(quizId);
         if (questions == null) {
             return new ArrayList<>();

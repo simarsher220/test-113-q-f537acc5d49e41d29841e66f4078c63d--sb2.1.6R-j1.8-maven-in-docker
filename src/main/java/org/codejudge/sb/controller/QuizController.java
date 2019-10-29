@@ -27,7 +27,7 @@ public class QuizController {
     private QuestionService questionService;
 
     @GetMapping("/quiz/{quizId}")
-    public ResponseEntity getQuiz(@PathVariable("quizId") UUID quizId) throws CustomException {
+    public ResponseEntity getQuiz(@PathVariable("quizId") Integer quizId) throws CustomException {
         Quiz quiz = quizService.getQuizById(quizId);
         if (quiz == null) {
             return new ResponseEntity<>(new EmptyResponse(), HttpStatus.NOT_FOUND);
@@ -45,7 +45,7 @@ public class QuizController {
     }
 
     @GetMapping("/quiz-questions/{quizId}")
-    public ResponseEntity getQuizWithQuestions(@PathVariable("quizId") UUID quizId) {
+    public ResponseEntity getQuizWithQuestions(@PathVariable("quizId") Integer quizId) {
         Quiz quiz = quizService.getQuizById(quizId);
         if (quiz == null) {
             return new ResponseEntity<>(new EmptyResponse(), HttpStatus.NOT_FOUND);

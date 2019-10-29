@@ -4,11 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.UUID;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "quiz")
@@ -16,7 +12,7 @@ import java.util.UUID;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Quiz {
 
-    private UUID id;
+    private Integer id;
     private String name;
     private String description;
 
@@ -26,11 +22,12 @@ public class Quiz {
     @Column(name = "id")
     @JsonProperty("id")
     @Id
-    public UUID getId() {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -17,7 +17,7 @@ public class QuestionController {
     private QuestionService questionService;
 
     @GetMapping("/questions/{questionId}")
-    public ResponseEntity getQuestion(@PathVariable("questionId") UUID questionId) throws CustomException {
+    public ResponseEntity getQuestion(@PathVariable("questionId") Integer questionId) throws CustomException {
         Question question = questionService.getQuestionById(questionId);
         if (question == null) {
             throw new CustomException("Couldn't find question", HttpStatus.NOT_FOUND);
