@@ -19,6 +19,7 @@ public class QuizService {
 
     public Quiz createQuiz(Quiz quiz) throws CustomException {
         try {
+            Quiz.validate(quiz);
             quiz = quizRepository.saveAndFlush(quiz);
         }
         catch (Exception e) {

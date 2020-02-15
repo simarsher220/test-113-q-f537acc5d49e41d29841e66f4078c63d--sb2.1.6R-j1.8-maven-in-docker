@@ -33,6 +33,7 @@ public class QuestionService {
             throw new CustomException("No quiz found!", HttpStatus.BAD_REQUEST);
         }
         try {
+            Question.validate(question);
             question = questionRepository.saveAndFlush(question);
         }
         catch (Exception e) {

@@ -3,6 +3,9 @@ package org.codejudge.sb.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.codejudge.sb.error.CustomException;
+import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 
@@ -49,5 +52,22 @@ public class Quiz {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public static void validate(Quiz quiz) throws CustomException {
+        quiz.validateName();
+        quiz.validateDescription();
+    }
+
+    private void validateDescription() throws CustomException {
+        if (StringUtils.isEmpty(description)) {
+            throw new CustomException("Description cannot be empty", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    private void validateName() throws CustomException {
+        if (StringUtils.isEmpty(name)) {
+            throw new CustomException("Name cannot be empty", HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -3,6 +3,9 @@ package org.codejudge.sb.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.codejudge.sb.error.CustomException;
+import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 
@@ -82,5 +85,37 @@ public class Question {
 
     public void setPoints(Integer points) {
         this.points = points;
+    }
+
+    public static void validate(Question question) throws CustomException {
+        question.validateOptions();
+        question.validateName();
+        question.validateCorrectOption();
+        question.validatePoints();
+
+    }
+
+    private void validateName() throws CustomException {
+        if (StringUtils.isEmpty(name)) {
+            throw new CustomException("Name cannot be empty", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    private void validateOptions() throws CustomException {
+        if (StringUtils.isEmpty(options)) {
+            throw new CustomException("options cannot be empty", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    private void validateCorrectOption() throws CustomException {
+        if (null == correctOption) {
+            throw new CustomException("correct option cannot be empty", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    private void validatePoints() throws CustomException {
+        if (null == points) {
+            throw new CustomException("points cannot be empty", HttpStatus.BAD_REQUEST);
+        }
     }
 }
