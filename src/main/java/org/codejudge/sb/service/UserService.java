@@ -95,6 +95,9 @@ public class UserService {
         QuizQuestions quizQuestions = new QuizQuestions();
         quizQuestions.setName(quiz.getName());
         quizQuestions.setDescription(quiz.getDescription());
+        for (Question question : questions) {
+            question.setCorrectOption(null);
+        }
         quizQuestions.setQuestions(questions);
         return quizQuestions;
     }
