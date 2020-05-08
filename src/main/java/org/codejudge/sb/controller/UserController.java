@@ -31,7 +31,7 @@ public class UserController {
         return new ResponseEntity<>(quizzes, HttpStatus.OK);
     }
 
-    @GetMapping("/quiz-questions/{quizId}/all")
+    @GetMapping("/quiz-questions/all/{quizId}")
     @ResponseBody
     public ResponseEntity getQuizQuestions(@PathVariable("quizId") Integer quizId) throws CustomException {
         return new ResponseEntity<>(userService.getQuizQuestions(quizId), HttpStatus.OK);
