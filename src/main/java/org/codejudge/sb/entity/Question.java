@@ -17,6 +17,7 @@ public class Question {
 
     private Integer id;
     private String name;
+    private String image;
     private String options;
     private Integer correctOption;
     private Integer quizId;
@@ -85,6 +86,15 @@ public class Question {
 
     public void setPoints(Integer points) {
         this.points = points;
+    }
+
+    @Column(name = "image")
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public static void validate(Question question) throws CustomException {
