@@ -18,20 +18,26 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/user/quiz-score")
+    @GetMapping("/")
+    @ResponseBody
+    public ResponseEntity hello() throws CustomException {
+        return new ResponseEntity<>("Hello World!", HttpStatus.OK);
+    }
+
+    @PostMapping("/api/user/quiz-score")
     @ResponseBody
     public ResponseEntity calculateScore(@RequestBody QuizSolution results) throws CustomException {
         return new ResponseEntity<ScoreResponse>(userService.calculateScore(results), HttpStatus.OK);
     }
 
-    @GetMapping("/quiz/all")
+    @GetMapping("/api/quiz/all")
     @ResponseBody
     public ResponseEntity getAllQuiz() throws CustomException {
         List<Quiz> quizzes = userService.getAllQuiz();
         return new ResponseEntity<>(quizzes, HttpStatus.OK);
     }
 
-    @GetMapping("/quiz-questions/all/{quizId}")
+    @GetMapping("/api/quiz-questions/all/{quizId}")
     @ResponseBody
     public ResponseEntity getQuizQuestions(@PathVariable("quizId") Integer quizId) throws CustomException {
         return new ResponseEntity<>(userService.getQuizQuestions(quizId), HttpStatus.OK);

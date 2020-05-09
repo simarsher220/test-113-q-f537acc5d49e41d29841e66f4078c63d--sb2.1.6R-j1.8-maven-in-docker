@@ -26,7 +26,7 @@ public class QuizController {
     @Autowired
     private QuestionService questionService;
 
-    @GetMapping("/quiz/{quizId}")
+    @GetMapping("/api/quiz/{quizId}")
     public ResponseEntity getQuiz(@PathVariable("quizId") Integer quizId) throws CustomException {
         Quiz quiz = quizService.getQuizById(quizId);
         if (quiz == null) {
@@ -37,14 +37,14 @@ public class QuizController {
         }
     }
 
-    @PostMapping("/quiz/")
+    @PostMapping("/api/quiz/")
+    @ResponseBody
     public ResponseEntity getQuiz(@RequestBody Quiz quiz) throws CustomException {
-        log.info("inside quiz controller");
         quiz = quizService.createQuiz(quiz);
         return new ResponseEntity<>(quiz, HttpStatus.CREATED);
     }
 
-    @GetMapping("/quiz-questions/{quizId}")
+    @GetMapping("/api/quiz-questions/{quizId}")
     public ResponseEntity getQuizWithQuestions(@PathVariable("quizId") Integer quizId) {
         Quiz quiz = quizService.getQuizById(quizId);
         if (quiz == null) {

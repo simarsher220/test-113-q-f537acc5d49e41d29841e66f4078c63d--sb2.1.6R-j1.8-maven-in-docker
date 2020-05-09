@@ -16,7 +16,7 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
-    @GetMapping("/questions/{questionId}")
+    @GetMapping("/api/questions/{questionId}")
     public ResponseEntity getQuestion(@PathVariable("questionId") Integer questionId) throws CustomException {
         Question question = questionService.getQuestionById(questionId);
         if (question == null) {
@@ -27,7 +27,7 @@ public class QuestionController {
         }
     }
 
-    @PostMapping("/questions/")
+    @PostMapping("/api/questions/")
     public ResponseEntity createQuestion(@RequestBody Question question) throws CustomException {
         question = questionService.createQuestion(question);
         return new ResponseEntity<>(question, HttpStatus.CREATED);

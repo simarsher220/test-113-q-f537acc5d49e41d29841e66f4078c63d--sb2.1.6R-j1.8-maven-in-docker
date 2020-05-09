@@ -29,7 +29,7 @@ public class Question {
     @Id
     @Column(name = "id")
     @JsonProperty("id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
