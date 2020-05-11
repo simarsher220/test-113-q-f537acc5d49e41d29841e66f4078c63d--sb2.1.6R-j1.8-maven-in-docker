@@ -1,3 +1,8 @@
+-- delete all data --
+DELETE FROM question;
+DELETE FROM quiz;
+DELETE FROM users;
+
 -- quiz data --
 INSERT INTO quiz(id, name, description) VALUES (1, 'Basic GK Quiz', 'This quiz will help to polish your unawareness about General Knowledge.');
 INSERT INTO quiz(id, name, description) VALUES (2, 'Sports Quiz', 'The Sports Quiz consists of different questions from countries and national games and also Olympic games.');

@@ -1,8 +1,10 @@
 package org.codejudge.sb;
 
 import lombok.extern.slf4j.Slf4j;
+import org.codejudge.sb.db.service.api.DatabaseService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
