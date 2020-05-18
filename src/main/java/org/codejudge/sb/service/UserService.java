@@ -57,7 +57,7 @@ public class UserService {
             }
             score += quesCorrectResponse.get(mapping.getQuesId()).equals(mapping.getOptionId()) ? quesPoints.get(mapping.getQuesId()) : 0;
             totalScore += quesPoints.get(mapping.getQuesId());
-            qomResponse.add(new QuesOptionMappingResponse.QuesOptionMappingResponseBuilder(mapping.getQuesId(), mapping.getOptionId(), quesCorrectResponse.get(mapping.getQuesId())).build());
+            qomResponse.add(new QuesOptionMappingResponse.QuesOptionMappingResponseBuilder(mapping.getQuesId(), quesCorrectResponse.get(mapping.getQuesId()), mapping.getOptionId()).build());
         }
         user.setScore(score);
         userRepo.save(user);
