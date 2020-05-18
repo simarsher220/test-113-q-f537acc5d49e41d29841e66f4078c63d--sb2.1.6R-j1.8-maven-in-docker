@@ -18,30 +18,24 @@ public class ScoreResponse {
     private Integer score;
     @JsonProperty("total_score")
     private Integer totalScore;
-    @JsonProperty("correct_options")
-    private List<QuesOptionMapping> correctOptions;
-    @JsonProperty("submitted_options")
-    private List<QuesOptionMapping> submittedOptions;
+    private List<QuesOptionMappingResponse> questions;
 
     public ScoreResponse(ScoreResponseBuilder builder) {
         this.score = builder.score;
         this.totalScore = builder.totalScore;
-        this.correctOptions = builder.correctOptions;
-        this.submittedOptions = builder.submittedOptions;
+        this.questions = builder.questions;
     }
 
     public static class ScoreResponseBuilder {
 
         private Integer score;
         private Integer totalScore;
-        private List<QuesOptionMapping> correctOptions;
-        private List<QuesOptionMapping> submittedOptions;
+        private List<QuesOptionMappingResponse> questions;
 
-        public ScoreResponseBuilder(Integer score, Integer totalScore, List<QuesOptionMapping> correctOptions, List<QuesOptionMapping> submittedOptions) {
+        public ScoreResponseBuilder(Integer score, Integer totalScore, List<QuesOptionMappingResponse> questions) {
             this.score = score;
             this.totalScore = totalScore;
-            this.correctOptions = correctOptions;
-            this.submittedOptions = submittedOptions;
+            this.questions = questions;
         }
 
         public ScoreResponse build() {

@@ -18,8 +18,8 @@ public class QuesOptionMapping {
     @JsonProperty("ques_id")
     private Integer quesId;
 
-    @JsonProperty("option_id")
-    private Integer optionId;
+    @JsonProperty("submitted_option")
+    private String optionId;
 
     public QuesOptionMapping(QuesOptionMappingBuilder builder) {
         this.quesId = builder.quesId;
@@ -44,9 +44,9 @@ public class QuesOptionMapping {
     public static class QuesOptionMappingBuilder {
 
         private Integer quesId;
-        private Integer optionId;
+        private String optionId;
 
-        public QuesOptionMappingBuilder(Integer quesId, Integer optionId) {
+        public QuesOptionMappingBuilder(Integer quesId, String optionId) {
             this.quesId = quesId;
             this.optionId = optionId;
         }

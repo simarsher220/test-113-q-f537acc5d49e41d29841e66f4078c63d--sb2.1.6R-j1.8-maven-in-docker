@@ -6,10 +6,7 @@ import org.codejudge.sb.entity.Question;
 import org.codejudge.sb.entity.Quiz;
 import org.codejudge.sb.entity.User;
 import org.codejudge.sb.error.CustomException;
-import org.codejudge.sb.model.QuesOptionMapping;
-import org.codejudge.sb.model.QuizQuestions;
-import org.codejudge.sb.model.QuizSolution;
-import org.codejudge.sb.model.ScoreResponse;
+import org.codejudge.sb.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,6 +16,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -45,23 +43,25 @@ public class UserService {
         User user = validateUser();
         user.setResults(results);
         List<Question> questions = questionService.getQuestionsByQuizId(results.getQuizId());
-        Map<Integer, Integer> quesCorrectOption = questions.stream().collect(Collectors.toMap(Question::getId, Question::getCorrectOption));
+        Map<Integer, String> quesCorrectResponse = new HashMap<>();
+        for (Question question : questions) {
+            String correctOption = question.getOptions().split(",")[question.getCorrectOption() - 1];
+            quesCorrectResponse.put(question.getId(), correctOption);
+        }
         Map<Integer, Integer> quesPoints = questions.stream().collect(Collectors.toMap(Question::getId, Question::getPoints));
         int score = 0, totalScore = 0;
+        List<QuesOptionMappingResponse> qomResponse = new ArrayList<>();
         for (QuesOptionMapping mapping : results.getMappings()) {
             if (null == mapping.getOptionId()) {
                 continue;
             }
-            score += quesCorrectOption.get(mapping.getQuesId()).equals(mapping.getOptionId()) ? quesPoints.get(mapping.getQuesId()) : 0;
+            score += quesCorrectResponse.get(mapping.getQuesId()).equals(mapping.getOptionId()) ? quesPoints.get(mapping.getQuesId()) : 0;
             totalScore += quesPoints.get(mapping.getQuesId());
+            qomResponse.add(new QuesOptionMappingResponse.QuesOptionMappingResponseBuilder(mapping.getQuesId(), mapping.getOptionId(), quesCorrectResponse.get(mapping.getQuesId())).build());
         }
         user.setScore(score);
         userRepo.save(user);
-        List<QuesOptionMapping> correctOptions = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> entry : quesCorrectOption.entrySet()) {
-            correctOptions.add(new QuesOptionMapping.QuesOptionMappingBuilder(entry.getKey(), entry.getValue()).build());
-        }
-        return new ScoreResponse.ScoreResponseBuilder(score, totalScore, correctOptions, results.getMappings()).build();
+        return new ScoreResponse.ScoreResponseBuilder(score, totalScore, qomResponse).build();
     }
 
     public User validateUser() throws CustomException {
