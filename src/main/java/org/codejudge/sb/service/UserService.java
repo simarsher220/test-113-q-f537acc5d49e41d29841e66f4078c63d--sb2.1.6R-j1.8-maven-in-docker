@@ -52,12 +52,12 @@ public class UserService {
         int score = 0, totalScore = 0;
         List<QuesOptionMappingResponse> qomResponse = new ArrayList<>();
         for (QuesOptionMapping mapping : results.getMappings()) {
+            totalScore += quesPoints.get(mapping.getQuesId());
+            qomResponse.add(new QuesOptionMappingResponse.QuesOptionMappingResponseBuilder(mapping.getQuesId(), quesCorrectResponse.get(mapping.getQuesId()), mapping.getOptionId()).build());
             if (null == mapping.getOptionId()) {
                 continue;
             }
             score += quesCorrectResponse.get(mapping.getQuesId()).equals(mapping.getOptionId()) ? quesPoints.get(mapping.getQuesId()) : 0;
-            totalScore += quesPoints.get(mapping.getQuesId());
-            qomResponse.add(new QuesOptionMappingResponse.QuesOptionMappingResponseBuilder(mapping.getQuesId(), quesCorrectResponse.get(mapping.getQuesId()), mapping.getOptionId()).build());
         }
         user.setScore(score);
         userRepo.save(user);
