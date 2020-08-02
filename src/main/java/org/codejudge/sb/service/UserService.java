@@ -15,10 +15,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -43,22 +40,45 @@ public class UserService {
         User user = validateUser();
         user.setResults(results);
         List<Question> questions = questionService.getQuestionsByQuizId(results.getQuizId());
+        List<Integer> quesIds = questions.stream().map(Question::getId).collect(Collectors.toList());
+        List<Integer> submittedQuesIds = results.getMappings().stream().map(QuesOptionMapping::getQuesId).collect(Collectors.toList());
+        Set<Integer> uniqueSubmittedIds = results.getMappings().stream().map(QuesOptionMapping::getQuesId).collect(Collectors.toSet());
+        for (Integer quesId : submittedQuesIds) {
+            if (!quesIds.contains(quesId)) {
+                throw new CustomException("Submitted question doesn't belong to quiz questions!", HttpStatus.BAD_REQUEST);
+            }
+        }
+        if (submittedQuesIds.size() != uniqueSubmittedIds.size()) {
+            throw new CustomException("There seem to be multiple submissions for same question!", HttpStatus.BAD_REQUEST);
+        }
         Map<Integer, String> quesCorrectResponse = new HashMap<>();
         for (Question question : questions) {
             String correctOption = question.getOptions().split(",")[question.getCorrectOption() - 1];
             quesCorrectResponse.put(question.getId(), correctOption);
         }
-        Map<Integer, Integer> quesPoints = questions.stream().collect(Collectors.toMap(Question::getId, Question::getPoints));
-        int score = 0, totalScore = 0;
-        List<QuesOptionMappingResponse> qomResponse = new ArrayList<>();
+        Map<Integer, String> quesOptionResponse = new HashMap<>();
         for (QuesOptionMapping mapping : results.getMappings()) {
-            totalScore += quesPoints.get(mapping.getQuesId());
-            qomResponse.add(new QuesOptionMappingResponse.QuesOptionMappingResponseBuilder(mapping.getQuesId(), quesCorrectResponse.get(mapping.getQuesId()), mapping.getOptionId()).build());
-            if (null == mapping.getOptionId()) {
+            quesOptionResponse.put(mapping.getQuesId(), mapping.getOptionId());
+        }
+        int score = 0;
+        List<QuesOptionMappingResponse> qomResponse = new ArrayList<>();
+        for (Question question : questions) {
+            String questionCorrectResponse = quesCorrectResponse.get(question.getId());
+            String questionOptionResponse = quesOptionResponse.get(question.getId());
+            qomResponse.add(new QuesOptionMappingResponse.QuesOptionMappingResponseBuilder(question.getId(), questionCorrectResponse, questionOptionResponse).build());
+            if (null == quesOptionResponse.get(question.getId())) {
                 continue;
             }
-            score += quesCorrectResponse.get(mapping.getQuesId()).equals(mapping.getOptionId()) ? quesPoints.get(mapping.getQuesId()) : 0;
+            score += questionOptionResponse.equals(questionCorrectResponse) ? question.getPoints() : 0;
         }
+//        for (QuesOptionMapping mapping : results.getMappings()) {
+//            qomResponse.add(new QuesOptionMappingResponse.QuesOptionMappingResponseBuilder(mapping.getQuesId(), quesCorrectResponse.get(mapping.getQuesId()), mapping.getOptionId()).build());
+//            if (null == mapping.getOptionId()) {
+//                continue;
+//            }
+//            score += quesCorrectResponse.get(mapping.getQuesId()).equals(mapping.getOptionId()) ? quesPoints.get(mapping.getQuesId()) : 0;
+//        }
+        Integer totalScore = questions.stream().mapToInt(Question::getPoints).sum();
         user.setScore(score);
         userRepo.save(user);
         return new ScoreResponse.ScoreResponseBuilder(score, totalScore, qomResponse).build();
